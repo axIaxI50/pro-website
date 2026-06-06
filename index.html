@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ieatmyownkids361</title>
+<meta name="description" content="A wannabe gd pro">
+<meta name="theme-color" content="#000000">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --bg:#000;
+    --text:#fff;
+    --glass:rgba(255,255,255,.05);
+    --border:rgba(255,255,255,.08);
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#000;
+    color:#fff;
+    font-family:Inter,sans-serif;
+    overflow-x:hidden;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:
+    radial-gradient(circle at var(--x,50%) var(--y,50%), rgba(255,255,255,.08), transparent 250px);
+    pointer-events:none;
+    z-index:0;
+}
+
+.loader{
+    position:fixed;
+    inset:0;
+    background:#000;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    transition:.8s ease;
+}
+
+.loader.hidden{
+    opacity:0;
+    visibility:hidden;
+}
+
+.loader-dot{
+    width:16px;
+    height:16px;
+    border-radius:50%;
+    background:#fff;
+    box-shadow:0 0 30px #fff;
+    animation:pulse 1.2s infinite;
+}
+
+@keyframes pulse{
+    0%,100%{transform:scale(1)}
+    50%{transform:scale(1.8)}
+}
+
+section{
+    position:relative;
+    z-index:2;
+}
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:40px 20px;
+}
+
+.hero-content{
+    text-align:center;
+    max-width:900px;
+}
+
+.avatar-wrap{
+    position:relative;
+    width:260px;
+    margin:auto;
+    animation:float 6s ease-in-out infinite;
+}
+
+.avatar-wrap::before{
+    content:"";
+    position:absolute;
+    inset:-20px;
+    background:radial-gradient(circle,rgba(255,255,255,.25),transparent 70%);
+    filter:blur(30px);
+    z-index:-1;
+}
+
+.avatar{
+    width:100%;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.15);
+    box-shadow:
+    0 0 40px rgba(255,255,255,.08),
+    0 0 120px rgba(255,255,255,.08);
+}
+
+@keyframes float{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-12px)}
+}
+
+.hero-text{
+    margin-top:40px;
+}
+
+.hero-text h1{
+    font-size:clamp(2.4rem,6vw,5rem);
+    font-weight:900;
+    letter-spacing:-2px;
+}
+
+.hero-text p{
+    margin-top:14px;
+    font-size:1.1rem;
+    color:#d6d6d6;
+}
+
+.hero-text p + p{
+    margin-top:8px;
+}
+
+.stats{
+    padding:80px 20px;
+}
+
+.stats-grid{
+    max-width:1200px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:var(--glass);
+    border:1px solid var(--border);
+    backdrop-filter:blur(16px);
+    border-radius:24px;
+    padding:28px;
+    text-align:center;
+    transition:.4s;
+}
+
+.card:hover{
+    transform:translateY(-6px);
+    border-color:rgba(255,255,255,.18);
+    box-shadow:0 0 50px rgba(255,255,255,.05);
+}
+
+.value{
+    font-size:2.2rem;
+    font-weight:800;
+}
+
+.label{
+    margin-top:8px;
+    color:#bfbfbf;
+}
+
+.socials{
+    padding:40px 20px 120px;
+}
+
+.social-wrap{
+    max-width:800px;
+    margin:auto;
+    display:grid;
+    gap:18px;
+}
+
+.btn{
+    text-decoration:none;
+    color:#fff;
+    font-weight:700;
+    text-align:center;
+    padding:22px;
+    border-radius:22px;
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.08);
+    transition:.35s;
+    position:relative;
+    overflow:hidden;
+}
+
+.btn::before{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:linear-gradient(90deg,
+    transparent,
+    rgba(255,255,255,.12),
+    transparent);
+    transform:translateX(-120%);
+}
+
+.btn:hover::before{
+    transform:translateX(120%);
+    transition:1s;
+}
+
+.btn:hover{
+    transform:translateY(-4px) scale(1.01);
+    box-shadow:0 0 45px rgba(255,255,255,.15);
+}
+
+.reveal{
+    opacity:0;
+    transform:translateY(40px);
+    transition:1s;
+}
+
+.reveal.active{
+    opacity:1;
+    transform:none;
+}
+
+@media(max-width:700px){
+    .avatar-wrap{
+        width:200px;
+    }
+}
+</style>
+</head>
+<body>
+
+<div class="loader">
+    <div class="loader-dot"></div>
+</div>
+
+<section class="hero">
+    <div class="hero-content reveal">
+
+        <div class="avatar-wrap">
+            <img
+            class="avatar"
+            src="https://cdn.discordapp.com/attachments/1419661924974592083/1512805405749809292/ChatGPT_Image_Jun_6_2026_03_08_26_PM.png?ex=6a256d53&is=6a241bd3&hm=bcb6e89221ba2794981a7514a9282c962603bd85f2fe4fb0f2d84c569459788c&"
+            alt="Profile">
+        </div>
+
+        <div class="hero-text">
+            <h1>A wannabe gd pro</h1>
+            <p>Hardest: Sonic Wave (Top 293)</p>
+            <p>GOING FOR TARTARUS (Top 62)</p>
+            <p>posting random stuff too</p>
+        </div>
+
+    </div>
+</section>
+
+<section class="stats">
+    <div class="stats-grid reveal">
+
+        <div class="card">
+            <div class="value" id="followers">0</div>
+            <div class="label">Followers</div>
+        </div>
+
+        <div class="card">
+            <div class="value" id="likes">0</div>
+            <div class="label">Likes</div>
+        </div>
+
+        <div class="card">
+            <div class="value" id="views">0</div>
+            <div class="label">Profile Views</div>
+        </div>
+
+        <div class="card">
+            <div class="value" id="verified">—</div>
+            <div class="label">Verified</div>
+        </div>
+
+    </div>
+</section>
+
+<section class="socials">
+    <div class="social-wrap reveal">
+
+        <a class="btn"
+        href="https://www.tiktok.com/@ieatmyownkids361?lang=en-GB"
+        target="_blank">
+        TikTok
+        </a>
+
+        <a class="btn"
+        href="https://discord.gg/SeED4mgCp"
+        target="_blank">
+        JOIN MY DISCORD SERVER
+        </a>
+
+    </div>
+</section>
+
+<script>
+window.addEventListener("load",()=>{
+    setTimeout(()=>{
+        document.querySelector(".loader").classList.add("hidden");
+    },700);
+});
+
+document.addEventListener("mousemove",(e)=>{
+    document.documentElement.style.setProperty("--x",e.clientX+"px");
+    document.documentElement.style.setProperty("--y",e.clientY+"px");
+});
+
+const observer=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+        if(entry.isIntersecting){
+            entry.target.classList.add("active");
+        }
+    });
+},{threshold:.15});
+
+document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
+
+function animateValue(el,target){
+    const start=parseInt(el.dataset.current||0);
+    const duration=1200;
+    const startTime=performance.now();
+
+    function frame(now){
+        const progress=Math.min((now-startTime)/duration,1);
+        const value=Math.floor(start+(target-start)*progress);
+
+        el.textContent=value.toLocaleString();
+        if(progress<1){
+            requestAnimationFrame(frame);
+        }else{
+            el.dataset.current=target;
+        }
+    }
+
+    requestAnimationFrame(frame);
+}
+
+async function loadTikTokData(){
+
+    const username="ieatmyownkids361";
+
+    const endpoints=[
+        `https://countik.com/api/user/${username}`,
+        `https://www.tikwm.com/api/user/info?unique_id=${username}`,
+        `https://www.tiktok.com/@${username}`
+    ];
+
+    for(const endpoint of endpoints){
+
+        try{
+
+            const response=await fetch(endpoint);
+
+            if(!response.ok) continue;
+
+            const data=await response.json();
+
+            let followers=0;
+            let likes=0;
+            let views=0;
+            let verified="—";
+
+            if(data?.follower_count!==undefined){
+                followers=data.follower_count;
+                likes=data.heart_count||0;
+                views=data.video_view_count||0;
+                verified=data.is_verified ? "Yes":"No";
+            }
+
+            if(data?.data?.user){
+                followers=data.data.stats?.followerCount||0;
+                likes=data.data.stats?.heartCount||0;
+                views=data.data.stats?.videoCount||0;
+                verified=data.data.user?.verified ? "Yes":"No";
+            }
+
+            animateValue(document.getElementById("followers"),followers);
+            animateValue(document.getElementById("likes"),likes);
+            animateValue(document.getElementById("views"),views);
+
+            document.getElementById("verified").textContent=verified;
+
+            return;
+
+        }catch(err){}
+    }
+
+    document.getElementById("verified").textContent="Unavailable";
+}
+
+loadTikTokData();
+
+setInterval(loadTikTokData,60000);
+
+window.addEventListener("scroll",()=>{
+    const y=window.scrollY;
+    document.querySelector(".avatar-wrap").style.transform=
+    `translateY(${y*0.03}px)`;
+});
+</script>
+
+</body>
+</html>
